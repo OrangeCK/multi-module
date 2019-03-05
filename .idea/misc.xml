@@ -6,6 +6,9 @@
       <list>
         <option value="$PROJECT_DIR$/multi-module-web/pom.xml" />
         <option value="$PROJECT_DIR$/multi-module-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/multi-module-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/multi-module-common/pom.xml" />
       </list>
     </option>
   </component>

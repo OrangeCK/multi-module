@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ck</groupId>
-    <artifactId>multi-module-service</artifactId>
+    <artifactId>multi-module-dao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>multi-module-service</name>
+    <name>multi-module-dao</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -29,17 +29,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--引用multi-module-dao模块 -->
-        <dependency>
-            <groupId>com.ck</groupId>
-            <artifactId>multi-module-dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--引用multi-module-common模块 -->
         <dependency>
             <groupId>com.ck</groupId>
             <artifactId>multi-module-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!--添加swagger2的依赖 end-->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.0.7.1</version>
         </dependency>
     </dependencies>
 

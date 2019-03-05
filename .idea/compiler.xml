@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="multi-module-common" />
+        <module name="multi-module-dao" />
         <module name="multi-module-service" />
         <module name="multi-module-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="multi-module" target="1.5" />
       <module name="multimodule" target="1.5" />
     </bytecodeTargetLevel>
   </component>

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ck</groupId>
-    <artifactId>multi-module-service</artifactId>
+    <artifactId>multi-module-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>multi-module-service</name>
+    <name>multi-module-common</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -29,17 +29,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--引用multi-module-dao模块 -->
+        <!--mysql的依赖-->
         <dependency>
-            <groupId>com.ck</groupId>
-            <artifactId>multi-module-dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <!--引用multi-module-common模块 -->
-        <dependency>
-            <groupId>com.ck</groupId>
-            <artifactId>multi-module-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

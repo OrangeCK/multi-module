@@ -1,21 +1,23 @@
 package com.ck.multimoduleweb.controller;
 
-import com.ck.multimoduleservice.TestUtil.TestUtil;
+import com.ck.multimoduledao.entity.FndUser;
+import com.ck.multimoduleservice.service.TestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-@RestController
 @RequestMapping("/test")
+@Controller
 public class TestController {
 
-    @GetMapping("/date")
-    public String testDate(){
-        Date d = TestUtil.getCurDate();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return "当前时间：" + df.format(d);
+    @Autowired
+    private TestService testService;
+
+    @GetMapping("/getEntity")
+    @ResponseBody
+    public FndUser testEntity(){
+        return testService.testEntity();
     }
 }
