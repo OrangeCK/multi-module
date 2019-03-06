@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ck.multimoduledao.mapper.IndexMapper" >
+    <sql id="pageCondition">
+        <where>
+            ib.enable_flag = 'Y'
+            <if test="title != null and title != ''">
+                AND ib.title LIKE CONCAT(#{title, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="category != null and category != ''">
+                AND ib.category = #{category, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    <!--分页查询-->
+    <select id="findPageData" parameterType="com.ck.multimoduledao.entity.IndexQuery" resultType="com.ck.multimoduledao.entity.IndexQuery">
+        SELECT
+            ib.id AS id,
+            ib.title AS title,
+            ib.outline AS outline,
+            ib.markdown_text AS markdownText,
+            ib.content AS content,
+            ib.category AS category,
+            ib.s_ct creationDate
+        FROM
+            image_blog ib
+        <include refid="pageCondition"/>
+        <!--limit 1-->
+        limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+    </select>
+    <!--分页查询总数-->
+    <select id="findPageTotal" parameterType="com.ck.multimoduledao.entity.IndexQuery" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            image_blog ib
+        <include refid="pageCondition"/>
+    </select>
+</mapper>
+

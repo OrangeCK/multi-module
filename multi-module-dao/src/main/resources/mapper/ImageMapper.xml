@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ck.multimoduledao.mapper.ImageMapper" >
+    <!--新增-->
+    <insert id="saveForm" parameterType="com.ck.multimoduledao.entity.Image">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `image_blog`(`title`, `outline`,`markdown_text`, `content`, `category`, `s_cid`, `s_ct`, `s_uid`, `s_ut`)
+        VALUES
+        (#{title,jdbcType=VARCHAR}, #{outline,jdbcType=VARCHAR},#{markdownText,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+        #{creationBy, jdbcType=BIGINT}, #{creationDate, jdbcType=TIMESTAMP}, #{updatedBy, jdbcType=BIGINT}, #{updatedDate, jdbcType=TIMESTAMP})
+    </insert>
+    <sql id="pageCondition">
+        <where>
+            ib.enable_flag = 'Y'
+            <if test="title != null and title != ''">
+                AND ib.title LIKE CONCAT(#{title, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="category != null and category != ''">
+                AND ib.category = #{category, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    <!--分页查询-->
+    <select id="findPageData" parameterType="com.ck.multimoduledao.entity.Image" resultType="com.ck.multimoduledao.entity.Image">
+        SELECT
+            ib.id AS id,
+            ib.title AS title,
+            ib.outline AS outline,
+            ib.markdown_text AS markdownText,
+            ib.content AS content,
+            ib.category AS category,
+            ib.s_ct creationDate
+        FROM
+            image_blog ib
+        <include refid="pageCondition"/>
+        limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+    </select>
+    <!--分页查询总数-->
+    <select id="findPageTotal" parameterType="com.ck.multimoduledao.entity.Image" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            image_blog ib
+        <include refid="pageCondition"/>
+    </select>
+    <!--更新-->
+    <update id="updateForm" parameterType="com.ck.multimoduledao.entity.Image">
+        UPDATE image_blog
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="outline != null and outline != ''">
+                outline = #{outline,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null and category != ''">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="markdownText != null and markdownText != ''">
+                markdown_text = #{markdownText,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            s_uid = #{updatedBy, jdbcType=BIGINT},
+            s_ut = #{updatedDate, jdbcType=TIMESTAMP}
+        </set>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+    <!--失效-->
+    <update id="updateToDisable" parameterType="com.ck.multimoduledao.entity.Image">
+        UPDATE image_blog SET enable_flag = 'N',s_uid = #{updatedBy, jdbcType=BIGINT},s_ut = #{updatedDate, jdbcType=TIMESTAMP} WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+    <!--根据id查询image信息-->
+    <select id="findDetailById" parameterType="java.lang.Long" resultType="com.ck.multimoduledao.entity.Image">
+        SELECT
+            ib.id AS id,
+            ib.title AS title,
+            ib.outline AS outline,
+            ib.markdown_text AS markdownText,
+            ib.content AS content,
+            ib.category AS category,
+            ib.s_ct creationDate
+        FROM
+            image_blog ib
+        WHERE id = #{id, jdbcType=BIGINT}
+    </select>
+</mapper>
+

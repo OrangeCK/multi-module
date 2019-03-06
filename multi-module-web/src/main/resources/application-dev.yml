@@ -39,6 +39,19 @@ spring:
       test-on-return: false
       # 合并多个DruidDataSource的监控数据
       use-global-data-source-stat: true
+  # redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-wait: -1
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    timeout: 1000
 
 # mybatis plus插件
 mybatis-plus:

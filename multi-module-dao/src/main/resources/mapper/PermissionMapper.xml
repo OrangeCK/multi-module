@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ck.multimoduledao.mapper.PermissionMapper" >
+    <!--获得用户所有权限-->
+    <select id="findDataById" parameterType="java.lang.Long" resultType="com.ck.multimoduledao.entity.Permission">
+        SELECT
+            fp.id id,
+            fp.perm_code permCode,
+            fp.perm_desc permDesc,
+            fp.resources resources
+        FROM
+            b_user_role_relation brr,
+            m_fnd_role fr,
+            b_role_perm_relation bpr,
+            m_fnd_permission fp
+        WHERE
+            brr.role_id = fr.id
+            AND bpr.perm_id = fp.id
+            AND brr.role_id = bpr.role_id
+            AND brr.user_id = #{id}
+    </select>
+    <!--获得用户所有权限-->
+    <select id="findAllPermissionsById" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT
+            fp.perm_code
+        FROM
+            b_user_role_relation brr,
+            m_fnd_role fr,
+            b_role_perm_relation bpr,
+            m_fnd_permission fp
+        WHERE
+            brr.role_id = fr.id
+            AND bpr.perm_id = fp.id
+            AND brr.role_id = bpr.role_id
+            AND brr.user_id = #{id, jdbcType=BIGINT}
+    </select>
+    <!--获取所有权限-->
+    <select id="findData" parameterType="com.ck.multimoduledao.entity.Permission" resultType="com.ck.multimoduledao.entity.Permission">
+        SELECT
+            fp.id id,
+            fp.perm_code permCode,
+            fp.perm_desc permDesc,
+            fp.resources resources
+        FROM
+            m_fnd_permission fp
+        WHERE
+            fp.enable_flag = 'Y'
+    </select>
+</mapper>
+

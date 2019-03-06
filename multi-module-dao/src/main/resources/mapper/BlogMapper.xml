@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ck.multimoduledao.mapper.BlogMapper" >
+    <!--分页查询-->
+    <select id="findDetailById" parameterType="java.lang.Long" resultType="com.ck.multimoduledao.entity.BlogQuery">
+        SELECT
+            ib.id AS id,
+            ib.title AS title,
+            ib.outline AS outline,
+            ib.markdown_text AS markdownText,
+            ib.content AS content,
+            ib.category AS category,
+            ib.s_ct creationDate
+        FROM
+            image_blog ib
+        WHERE ib.enable_flag = 'Y'
+            AND ib.id = #{id, jdbcType=BIGINT}
+    </select>
+
+</mapper>
+

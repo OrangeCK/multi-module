@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ck.multimoduledao.mapper.EmployeeMapper" >
+    <!--验证登录是否正确-->
+    <select id="loginAccount" parameterType="java.lang.String" resultType="com.ck.multimoduledao.entity.Employee">
+        SELECT
+            fu.id id,
+            fu.user_name userName,
+            fu.login_name loginName,
+            fu.user_phone userPhone
+        FROM
+            m_fnd_user fu
+        WHERE
+            fu.enable_flag = 'Y'
+            AND fu.login_name = #{loginName, jdbcType=VARCHAR}
+            AND fu.password = #{password, jdbcType=VARCHAR}
+    </select>
+    <!--验证是否有这个用户-->
+    <select id="loginAccountByLoginName" parameterType="java.lang.String" resultType="com.ck.multimoduledao.entity.Employee">
+        SELECT
+            fu.id id,
+            fu.user_name userName,
+            fu.login_name loginName,
+            fu.password password,
+            fu.user_phone userPhone
+        FROM
+            m_fnd_user fu
+        WHERE
+            fu.enable_flag = 'Y'
+            AND fu.login_name = #{loginName, jdbcType=VARCHAR}
+        limit 1
+    </select>
+    <!--根据登录名取得登录密码-->
+    <select id="getPasswordByLoginName" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT fu.password FROM m_fnd_user fu WHERE fu.enable_flag = 'Y' AND fu.login_name = #{loginName, jdbcType=VARCHAR} limit 1
+    </select>
+    <sql id="pageCondition">
+        <where>
+            fu.enable_flag = 'Y'
+            <if test="userName != null and userName != ''">
+                AND fu.user_name LIKE CONCAT(#{userName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="loginName != null and loginName != ''">
+                AND fu.login_name LIKE CONCAT(#{loginName, jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </sql>
+    <!--分页查询-->
+    <select id="findPageData" parameterType="com.ck.multimoduledao.entity.Employee" resultType="com.ck.multimoduledao.entity.Employee">
+        SELECT
+            fu.id id,
+            fu.user_name userName,
+            fu.login_name loginName,
+            fu.password password,
+            fu.job_number jobNumber,
+            fu.user_phone userPhone,
+            fu.age age,
+            fu.sex sex,
+            fu.s_ct creationDate
+        FROM
+            m_fnd_user fu
+        <include refid="pageCondition"/>
+        limit #{start, jdbcType=INTEGER}, #{end, jdbcType=INTEGER}
+    </select>
+    <!--分页查询总数-->
+    <select id="findPageTotal" parameterType="com.ck.multimoduledao.entity.Employee" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            m_fnd_user fu
+        <include refid="pageCondition"/>
+    </select>
+    <!--新增用户信息-->
+    <insert id="saveForm" parameterType="com.ck.multimoduledao.entity.Employee">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO m_fnd_user (login_name, user_name, password, job_number, age, sex, user_phone, s_cid, s_ct, s_uid, s_ut )
+        VALUES
+        (#{loginName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{jobNumber,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=CHAR},
+        #{userPhone,jdbcType=VARCHAR}, #{creationBy, jdbcType=BIGINT}, #{creationDate, jdbcType=TIMESTAMP}, #{updatedBy, jdbcType=BIGINT}, #{updatedDate, jdbcType=TIMESTAMP} );
+    </insert>
+    <!--更新用户信息-->
+    <update id="updateForm" parameterType="com.ck.multimoduledao.entity.Employee">
+        UPDATE m_fnd_user
+        <set>
+            <if test="loginName != null and loginName != ''">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobNumber != null and jobNumber != ''">
+                job_number = #{jobNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                user_phone = #{userPhone,jdbcType=VARCHAR},
+            </if>
+            s_uid = #{updatedBy, jdbcType=BIGINT},
+            s_ut = #{updatedDate, jdbcType=TIMESTAMP}
+        </set>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+    <!--失效用户-->
+    <update id="updateToDisable" parameterType="com.ck.multimoduledao.entity.Employee">
+        UPDATE m_fnd_user SET enable_flag = 'N',s_uid = #{updatedBy, jdbcType=BIGINT},s_ut = #{updatedDate, jdbcType=TIMESTAMP}  WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+    <!--校验登陆名是否唯一-->
+    <select id="countCheckLoginName" parameterType="com.ck.multimoduledao.entity.Employee" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            m_fnd_user fu
+        WHERE
+            fu.enable_flag = 'Y'
+            AND fu.login_name = #{loginName, jdbcType=VARCHAR}
+        <if test="id != null">
+            AND fu.id != #{id, jdbcType=BIGINT}
+        </if>
+    </select>
+</mapper>
+

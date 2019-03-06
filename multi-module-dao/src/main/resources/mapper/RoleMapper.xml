@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ck.multimoduledao.mapper.RoleMapper" >
+    <!--获取用户所有角色-->
+    <select id="findDataById" parameterType="java.lang.Long" resultType="com.ck.multimoduledao.entity.Role">
+        SELECT
+            fr.id id,
+            fr.role_code roleCode,
+            fr.role_name roleName,
+            fr.role_desc roleDesc
+        FROM
+            b_user_role_relation brr,
+            m_fnd_role fr
+        WHERE
+            brr.role_id = fr.id
+            AND brr.user_id = #{id}
+    </select>
+    <!--根据用户id获取角色-->
+    <select id="findAllRolesById" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT
+            fr.role_code
+        FROM
+            b_user_role_relation brr,
+            m_fnd_role fr
+        WHERE
+            brr.role_id = fr.id
+            AND brr.user_id = #{id, jdbcType=BIGINT}
+    </select>
+    <!--增加用户与角色之前的关系-->
+    <insert id="addUserAndRoleRelation" parameterType="com.ck.multimoduledao.entity.Role">
+        INSERT INTO `b_user_role_relation` (`user_id`, `role_id`, `s_cid`, `s_ct`, `s_uid`, `s_ut` )
+        VALUES
+        (#{userId, jdbcType=BIGINT}, #{id, jdbcType=BIGINT}, #{creationBy, jdbcType=BIGINT}, #{creationDate, jdbcType=TIMESTAMP}, #{updatedBy, jdbcType=BIGINT}, #{updatedDate, jdbcType=TIMESTAMP})
+    </insert>
+    <!--删除用户与角色之间的关系-->
+    <delete id="delUserAndRoleRelation" parameterType="java.lang.Long">
+        DELETE FROM b_user_role_relation WHERE user_id = #{userId, jdbcType=BIGINT}
+    </delete>
+</mapper>
+

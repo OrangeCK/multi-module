@@ -54,3 +54,7 @@ logging:
       springframework:
         boot:
           autoconfigure: ERROR
+
+com:
+  filePath:
+    img: D:/image/
