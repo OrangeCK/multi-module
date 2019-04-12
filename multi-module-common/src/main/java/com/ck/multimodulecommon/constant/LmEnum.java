@@ -33,7 +33,11 @@ public enum LmEnum {
     /**
      * 业务表名
      */
-    IMAGE_BLOG("image_blog")
+    IMAGE_BLOG("image_blog"),
+    /**
+     * 阿里OSS访问域名
+     */
+    ENDPOINT("oss-cn-beijing.aliyuncs.com"),ACCESS_KEY_ID("LTAIebGfCOUJ8IJp"),ACCESS_KEY_SECRET("R9E47aBiFQz98ywLrGG5tFT9o7O2hS"),BACKET_NAME("2019-2-16-ck"),FOLDER("lmsystem/")
     ;
     private Integer num;
     /**
