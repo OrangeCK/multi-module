@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/multi-module-common/multi-module-common.iml" filepath="$PROJECT_DIR$/multi-module-common/multi-module-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multi-module-dao/multi-module-dao.iml" filepath="$PROJECT_DIR$/multi-module-dao/multi-module-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multi-module-service/multi-module-service.iml" filepath="$PROJECT_DIR$/multi-module-service/multi-module-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multi-module-web/multi-module-web.iml" filepath="$PROJECT_DIR$/multi-module-web/multi-module-web.iml" />
+    </modules>
+  </component>
+</project>

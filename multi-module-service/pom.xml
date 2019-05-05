@@ -11,6 +11,7 @@
     <groupId>com.ck</groupId>
     <artifactId>multi-module-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>multi-module-service</name>
     <description>Demo project for Spring Boot</description>
 
@@ -29,26 +30,37 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--引用multi-module-dao模块 -->
-        <dependency>
-            <groupId>com.ck</groupId>
-            <artifactId>multi-module-dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--引用multi-module-common模块 -->
         <dependency>
             <groupId>com.ck</groupId>
             <artifactId>multi-module-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!--引用multi-module-dao模块 -->
+        <dependency>
+            <groupId>com.ck</groupId>
+            <artifactId>multi-module-dao</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<mainClass>com.ck.multimoduleweb.MultiModuleWebApplication</mainClass>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>repackage</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

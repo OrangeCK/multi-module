@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="multi-module-common" />
+        <module name="multi-module-dao" />
+        <module name="multi-module-service" />
+        <module name="multi-module-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="multi-module-common" target="1.8" />
+      <module name="multi-module-dao" target="1.8" />
+      <module name="multi-module-service" target="1.8" />
+      <module name="multi-module-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
