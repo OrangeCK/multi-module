@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="referrer" content="never">
     <meta name="keywords" content="">
 	<meta name="description" content="" />
 	<link th:href="@{/css/carousel.css}" rel="styleSheet" type="text/css">
@@ -38,7 +39,8 @@
 		transform: scale(1.05);
 	 }
     .load_div{
-		text-align:center;
+        padding: 5px 0;
+        text-align:center;
 		cursor: pointer;
 	 }
     .load_div .load_status1{
@@ -61,20 +63,20 @@
   <body>
     <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background:linear-gradient(to bottom right,#524E4D, #626063, #898989, #CBD0D3)!important">
-    <a class="navbar-brand" href="#"><span th:text="${total}">Sebastian</span></a>
+    <a class="navbar-brand" href="#"><span th:text="${total}">橙子</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link disabled" href="#">主页</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link disabled" href="#">文章</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <a class="nav-link disabled" href="#">版本</a>
         </li>
       </ul>
       <form class="form-inline mt-2 mt-md-0">
@@ -87,7 +89,7 @@
 
 <main role="main">
 
-  <div id="myCarousel" class="carousel slide">
+  <div id="myCarousel" class="carousel slide" style="margin-bottom:2em;">
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -95,7 +97,9 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ><defs><pattern id="bgId3" width="1" height="1"><image width="100%" height="100%" th:href="@{/image/bg3.jpg}"></image></pattern></defs><rect width="100%" height="100%" fill="#eee"/><image width="100%" height="100%" th:href="@{/image/bg3.jpg}"></image></svg>
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" >
+            <defs><pattern id="bgId3" width="1" height="1"><image width="100%" height="100%" xlink:href="/image/bg3.jpg"></image></pattern>
+            </defs><rect width="100%" height="100%" fill="#eee"/><image width="100%" height="100%" xlink:href="/image/bg3.jpg"></image></svg>
         <div class="container">			
           <div class="carousel-caption text-left">
             <h1>示例1号</h1>
@@ -105,7 +109,9 @@
         </div>
       </div>
       <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ><defs><pattern id="bgId2" width="1" height="1"><image width="100%" height="100%" th:href="@{/image/bg4.jpg}"></image></pattern></defs><rect width="100%" height="100%" fill="#777"/><image width="100%" height="100%" th:href="@{/image/bg4.jpg}"></image></svg>
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" >
+            <defs><pattern id="bgId2" width="1" height="1"><image width="100%" height="100%" xlink:href="/image/bg3.jpg"></image></pattern></defs>
+            <rect width="100%" height="100%" fill="#777"/><image width="100%" height="100%" xlink:href="/image/bg3.jpg"></image></svg>
         <div class="container">
           <div class="carousel-caption">
             <h1>实例二号</h1>
@@ -115,7 +121,9 @@
         </div>
       </div>
       <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ><defs><pattern id="bgId3" width="1" height="1"><image width="100%" height="100%" th:href="@{/image/image3.jpg}"></image></pattern></defs><rect width="100%" height="100%" fill="#777"/><image width="100%" height="100%" th:href="@{/image/bg3.jpg}"></image></svg>
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" >
+            <defs><pattern id="bgId3" width="1" height="1"><image width="100%" height="100%" th:href="@{/image/image3.jpg}"></image></pattern></defs>
+            <rect width="100%" height="100%" fill="#777"/><image width="100%" height="100%" th:href="@{/image/bg3.jpg}"></image></svg>
         <div class="container">
           <div class="carousel-caption text-right">
             <h1>还有一个示例</h1>
@@ -135,51 +143,44 @@
     </a>
   </div>
 
+    <div class="container marketing lm-shadow" >
+        <div th:each="blog,stat : ${rows}">
+            <div class="row featurette"  th:if="${stat.odd}" >
+                <div class="col-md-7">
+                    <h2 class="featurette-heading blog_head" th:text="${blog.title}" th:onclick="|javascript:clickBlog(${blog.id})|">标题错误 <span class="text-muted" th:text="${blog.outline}">副标题错误</span></h2>
+                    <p class="lead" th:utext="${blog.outline}">内容未知.</p>
+                </div>
+                <div class="col-md-5 imghover" th:onclick="|javascript:clickBlog(${blog.id})|">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 替换">
+                        <defs>
+                            <pattern id="imgId6" width="1" height="1">
+                                <image width="100%" height="100%" th:href="@{${blog.imageUrl}}"></image>
+                            </pattern>
+                            <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation="5" /><feOffset dx="5" dy="5" /></filter>
+                        </defs>
+                        <rect fill="grey" filter="url(#filter)" width="95%" height="95%"/><rect width="95%" height="95%" fill="url(#imgId6)" /></svg>
+                </div>
+            </div>
 
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
+            <div class="row featurette" th:if="${stat.even}" >
+                <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading blog_head" th:text="${blog.title}" th:onclick="'clickBlog(\''+${blog.id}+'\')'">标题错误. <span class="text-muted" th:text="${blog.outline}">副标题错误.</span></h2>
+                    <p class="lead" th:utext="${blog.outline}">内容未知.</p>
+                </div>
+                <div class="col-md-5 imghover" th:onclick="'clickBlog(\''+${blog.id}+'\')'">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 替换">
+                        <defs>
+                            <pattern id="imgId7" width="1" height="1">
+                                <image width="100%" height="100%" th:href="@{${blog.imageUrl}}"></image>
+                            </pattern>
+                            <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation="5" /><feOffset dx="5" dy="5" /></filter>
+                        </defs><rect fill="grey" filter="url(#filter)" width="95%" height="95%"/><rect width="95%" height="95%" fill="url(#imgId7)" /></svg>
+                </div>
+            </div>
 
-  <div class="container marketing" th:each="blog,stat : ${rows}">
-
-    <!-- START THE FEATURETTES -->
-    <div class="row featurette"  th:if="${stat.odd}" >
-      <div class="col-md-7">
-        <h2 class="featurette-heading blog_head" th:text="${blog.title}" th:onclick="|javascript:clickBlog(${blog.id})|">标题错误 <span class="text-muted" th:text="${blog.outline}">副标题错误</span></h2>
-        <p class="lead" th:utext="${blog.outline}">内容未知.</p>
-      </div>
-      <div class="col-md-5 imghover" th:onclick="|javascript:clickBlog(${blog.id})|">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 替换">
-            <defs>
-                <pattern id="imgId7" width="1" height="1">
-                    <image width="100%" height="100%" th:href="@{/image/image7.jpg}"></image>
-                </pattern>
-                <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation="5" /><feOffset dx="5" dy="5" /></filter>
-            </defs>
-            <rect fill="grey" filter="url(#filter)" width="95%" height="95%"/><rect width="95%" height="95%" fill="url(#imgId7)" /></svg>
-      </div>
+            <hr class="featurette-divider">
+        </div>
     </div>
-
-    <div class="row featurette" th:if="${stat.even}" >
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading blog_head" th:text="${blog.title}" th:onclick="'clickBlog(\''+${blog.id}+'\')'">标题错误. <span class="text-muted" th:text="${blog.outline}">副标题错误.</span></h2>
-        <p class="lead" th:utext="${blog.outline}">内容未知.</p>
-      </div>
-      <div class="col-md-5 imghover" th:onclick="'clickBlog(\''+${blog.id}+'\')'">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 替换">
-            <defs>
-                <pattern id="imgId7" width="1" height="1">
-                    <image width="100%" height="100%" th:href="@{/image/image7.jpg}"></image>
-                </pattern>
-                <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation="5" /><feOffset dx="5" dy="5" /></filter>
-            </defs><rect fill="grey" filter="url(#filter)" width="95%" height="95%"/><rect width="95%" height="95%" fill="url(#imgId7)" /></svg>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <!-- /END THE FEATURETTES -->
-  </div><!-- /.container -->
   <!-- 加载loading -->
   <div id="load_div1" class="load_div load_no_active">
 	<image th:src="@{/image/loading2.gif}" class="load_status1" />
@@ -235,7 +236,11 @@
             "<p class='lead'>在三十岁之前，及时回头，改正。从此褪下幼稚的外衣。将智慧带走。然后，要做一个合格人。开始负担，开始顽强地爱着生活，爱着世界。</p>"+
             "</div>"+
             "<div class='col-md-5 order-md-1 imghover'>"+
-              "<svg class='bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto' width='500' height='500' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: 替换'><defs><pattern id='imgId2' width='1' height='1'><image width='100%' height='100%' xlink:href='/image/image2.jpg'></image></pattern><filter id='filter' x='0' y='0'><feGaussianBlur stdDeviation='5' /><feOffset dx='5' dy='5' /></filter></defs><rect fill='grey' filter='url(#filter)' width='95%' height='95%'/><rect width='95%' height='95%' fill='url(#imgId2)' /></svg>"+
+              "<svg class='bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto' width='500' height='500' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: 替换'>" +
+                "<defs><pattern id='imgId2' width='1' height='1'>" +
+                "<image width='100%' height='100%' xlink:href='/image/image2.jpg'></image>" +
+                "</pattern><filter id='filter' x='0' y='0'><feGaussianBlur stdDeviation='5' /><feOffset dx='5' dy='5' /></filter>" +
+                "</defs><rect fill='grey' filter='url(#filter)' width='95%' height='95%'/><rect width='95%' height='95%' fill='url(#imgId2)' /></svg>"+
               "</div>"+
               "</div>"+
         "<hr class='featurette-divider'>");
